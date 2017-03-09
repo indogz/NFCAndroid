@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
             return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], payload.toByteArray());
         } catch (UnsupportedEncodingException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Tag written", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -330,3 +330,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
