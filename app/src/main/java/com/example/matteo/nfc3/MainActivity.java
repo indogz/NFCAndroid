@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected IntentFilter[] intentFilters;
     protected ToggleButton tglReadWrite;
     protected EditText txtTagContent;
+    protected String tagContent;
     protected byte[] language;
 
     @Override
@@ -296,36 +297,46 @@ public class MainActivity extends AppCompatActivity {
         txtTagContent.setText("");
     }
 
+    /**
+     * This method permits to convert an NdefRecord to a text
+     * @param ndefRecord
+     * @return
+     */
     public String getTextFromNdefRecord(NdefRecord ndefRecord) {
         String tagContent = null;
         try {
             byte[] payload = ndefRecord.getPayload();
             /**
              * The first sector is not writable. Contains the format of the data
+             * inspired by: http://stackoverflow.com/questions/30914423/android-encoding-issue
+             *              http://stackoverflow.com/questions/29231463/how-to-send-bytes-by-nfc
              */
+
+            //NOTICE: using & operator which make a bitwise operation
             String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
             int languageSize = payload[0] & 0063;
             tagContent = new String(payload, languageSize + 1, payload.length - languageSize - 1, textEncoding);
 
 
         } catch (UnsupportedEncodingException e) {
-            Log.e("getTextFromNdefRecord", e.getMessage(), e);
+           e.printStackTrace();
         }
         return  tagContent;
     }
 
+    /**
+     * This method is the one which physically write the message into the tag.
+     * @param ndefMessage
+     */
+
     private void readTextFromTag(NdefMessage ndefMessage) {
         NdefRecord[] ndefRecords = ndefMessage.getRecords();
         if (ndefRecords != null && ndefRecords.length > 0) {
-
             NdefRecord ndefRecord= ndefRecords[0];
-            String tagContent= getTextFromNdefRecord(ndefRecord);
+            tagContent= getTextFromNdefRecord(ndefRecord);
             txtTagContent.setText(tagContent);
-
-
         }else{
             Toast.makeText(this, "No NDEF reoords found", Toast.LENGTH_SHORT).show();
-
         }
 
     }
