@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void viewAntennaStatus(NfcAdapter nfcAdapter){
         if(nfcAdapter.isEnabled()!=true){
             Toast.makeText(this, "NFC not enabled", Toast.LENGTH_LONG).show();
-
         }
-
     }
 
 
@@ -106,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             Toast.makeText(this, "NfcIntent detected", Toast.LENGTH_SHORT).show();
-
 
             //Check which mode is selected (read or write)
             if (tglReadWrite.isChecked()) {
