@@ -1,3 +1,5 @@
+Grazie di avermi forkato
+
 # NFC
 Parte del progetto di maturità: identificazione personale e mezzi mediante TAG Nfc.
 L'app permette di leggere e scrivere dati nei vari settori del TAG.
